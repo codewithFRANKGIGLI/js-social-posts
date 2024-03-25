@@ -66,7 +66,18 @@ posts.forEach((singlePost) => {
 
 // - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
-
+let counterLike = [];
+const  handleClickLike = document.querySelector('.like-button');
+handleClickLike.addEventListener('click', function() {
+    // cambio colore dell'icona e del testo 'mi piace'
+    const  buttonText = document.querySelector(".like-button__label");
+    const  imgIcone = document.querySelector(".fa-thumbs-up" );
+    if (handleClickLike) {
+        imgIcone.classList.add("like-button--liked");
+        buttonText.classList.add("like-button--liked");
+        event.preventDefault();
+    }
+});
 
 
 
