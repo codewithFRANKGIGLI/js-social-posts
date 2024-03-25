@@ -64,6 +64,8 @@ posts.forEach((singlePost) => {
     containerPost.innerHTML += newPost;
 });
 
+// - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
 
 
@@ -71,29 +73,28 @@ posts.forEach((singlePost) => {
 // FUNCTIONS
 function generateSinglePost (singlePost) {
     const {id, content, media, author, likes, created} = singlePost;
-    
 
     const singlePostTemplate = `
     <div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
-                        <img class="profile-pic" src="${getImageTemplate(image)}" alt="Phil Mangione">                    
+                        <img class="profile-pic" src="${author.image}" alt="${author.name}">                    
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${author.name}</div>
-                        <div class="post-meta__time">4 mesi fa</div>
+                        <div class="post-meta__time">${created}</div>
                     </div>                    
                 </div>
             </div>
             <div class="post__text">${content}</div>
             <div class="post__image">
-                <img src="${author.name}" alt="">
+                <img src="${media}" alt="">
             </div>
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="${id}">
+                        <a class="like-button  js-like-button" href="" data-postid="${id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -107,16 +108,4 @@ function generateSinglePost (singlePost) {
     `
 
     return singlePostTemplate;
-}
-
-function getImageTemplate(image) {
-    let imageString;
-
-    if(image) {
-        imageString = `prova`;
-    } else {
-        imageString = ``;
-    }
-
-    return imageString;
 }
