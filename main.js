@@ -56,6 +56,8 @@ const posts = [
     }
 ];
 
+const likesArray = [];
+
 
 // - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
 const containerPost = document.querySelector('#container');
@@ -66,19 +68,22 @@ posts.forEach((singlePost) => {
 
 // - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
-let counterLike = [];
-const  handleClickLike = document.querySelector('.like-button');
-handleClickLike.addEventListener('click', function() {
-    // cambio colore dell'icona e del testo 'mi piace'
-    const  buttonText = document.querySelector(".like-button__label");
-    const  imgIcone = document.querySelector(".fa-thumbs-up" );
-    if (handleClickLike) {
-        imgIcone.classList.add("like-button--liked");
-        buttonText.classList.add("like-button--liked");
-        event.preventDefault();
-    }
-});
 
+const  handleClickLike = document.querySelectorAll('.js-like-button');
+const allCounters = document.querySelectorAll('.js-likes-counter');
+handleClickLike.forEach((singleLikeButton, index) => {
+    singleLikeButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        if(!this.classList.contains("like-button--liked")){
+            this.classList.add('like-button--liked');
+            const relatedCounter = allCounters[index];
+            const relatedCounterNumber = parseInt(relatedCounter.innerHTML) + 1;
+            relatedCounter.innerHTML = relatedCounterNumber;
+            const thisPostId = parseInt(this.dataset.postid);
+            likesArray.push(thisPostId);
+        }
+    });
+});
 
 
 // FUNCTIONS
@@ -100,7 +105,7 @@ function generateSinglePost (singlePost) {
             </div>
             <div class="post__text">${content}</div>
             <div class="post__image">
-                <img src="${media}" alt="">
+                <img src="${media}" alt="${author.name}">
             </div>
             <div class="post__footer">
                 <div class="likes js-likes">
